@@ -54,54 +54,53 @@ const allowRightScroll = ref(false)
 </script>
 
 <template>
-    <section
-        class="animate__animated animate__fadeInDown"
-        :style="{
-            'margin-top': index === 0 ? '0' : '16px',
-            'animation-delay': `${index * 0.5}s`,
-        }"
+    <h3
+        class="title animate__animated animate__fadeInLeft"
+        :style="{ 'margin-top': index === 0 ? '0' : '16px' }"
     >
-        <h3 class="title">
-            {{ category }}
-        </h3>
-        <section
-            @mouseover="hover = true"
-            @mouseleave="hover = false"
+        {{ category }}
+    </h3>
+    <section
+        class="overlay"
+        @mouseover="hover = true"
+        @mouseleave="hover = false"
+    >
+        <div
+            v-show="!hasTouch()"
+            @click="scroll('left')"
+            :style="{
+                'opacity': hover && allowLeftScroll ? 1 : 0,
+                'cursor': allowLeftScroll ? 'pointer' : 'default',
+                'z-index': 1,
+            }"
+            class="left"
         >
-            <div
-                v-if="!hasTouch()"
-                @click="scroll('left')"
-                :style="{
-                    opacity: hover && allowLeftScroll ? 1 : 0,
-                    cursor: allowLeftScroll ? 'pointer' : 'default',
-                }"
-                class="left"
-            >
-                <i class="material-icons">chevron_left</i>
-            </div>
-            <section
-                ref="container"
-                class="container"
-            >
-                <ListItem
-                    v-for="(show, i) in shows"
-                    :key="i"
-                    :show
-                    :width
-                />
-            </section>
-            <div
-                v-if="!hasTouch()"
-                @click="scroll('right')"
-                :style="{
-                    opacity: hover && allowRightScroll ? 1 : 0,
-                    cursor: allowRightScroll ? 'pointer' : 'default',
-                }"
-                class="right"
-            >
-                <i class="material-icons">chevron_right</i>
-            </div>
+            <i class="material-icons">chevron_left</i>
+        </div>
+        <section
+            ref="container"
+            class="container"
+        >
+            <ListItem
+                v-for="(show, i) in shows"
+                :key="i"
+                :index="i"
+                :show
+                :width
+            />
         </section>
+        <div
+            v-show="!hasTouch()"
+            @click="scroll('right')"
+            :style="{
+                'opacity': hover && allowRightScroll ? 1 : 0,
+                'cursor': allowRightScroll ? 'pointer' : 'default',
+                'z-index': 1,
+            }"
+            class="right"
+        >
+            <i class="material-icons">chevron_right</i>
+        </div>
     </section>
 </template>
 
