@@ -35,6 +35,7 @@ defineProps({
 }
 
 img {
+    cursor: pointer;
     max-width: 100%;
     border-radius: 8px;
 }

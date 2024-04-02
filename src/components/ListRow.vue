@@ -147,9 +147,6 @@ const allowRightScroll = ref(false)
 
 i {
     font-size: 48px;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
 }
 
 ::-webkit-scrollbar {
